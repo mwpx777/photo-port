@@ -1,34 +1,25 @@
 // NAVIGATION
 
-import React from 'react';
+import React, {useEffect} from 'react';
+import {capitalizeFirstLetter} from "../../utils/helpers";
 
-function Nav() {
+// props are passed in from App.js which define the state of category
+function Nav(props) {
+    // initilize category state with new array of objects
+    // (categories[0]) is setter for useState
+    const {
+        categories = [],
+        setCurrentCategory,
+        currentCategory,
+    } = props;
 
-    const categories = [
-        {
-            name: 'commercial',
-            description: 'Photos of grocery stores, food trucks, and other commercial projects'
-        },
-        {
-            name: 'portraits',
-            description: 'Portraits of people in my life'
-        },
-        {
-            name: 'food',
-            description: 'Delicious delicacies'
-        },
-        {
-            name: 'landscape',
-            description: 'Fields, farmhouses, waterfalls, and the beauty of nature'
-        },
-    ];
+    // [currentCategory] directs useEffect Hook to rerender the component on changes to the value of this state
+    useEffect(() => {
+        document.title = capitalizeFirstLetter(currentCategory.name);
+    }, [currentCategory]);
 
-    function categorySelected(name) {
-        console.log(`${name} clicked`)
-    }
-
-    return (
-        <header data-testid="header" className="flex-row px-1">
+      return (
+        <header className="flex-row px-1">
             <h2>
                 <a data-testid="link" href="/">
                     <span role="img" aria-label="camera"> 📸</span> Oh Snap!
@@ -45,9 +36,10 @@ function Nav() {
                         <span>Contact</span>
                     </li>
                     {categories.map((category) => (
-                        <li className="mx-1" key={category.name}>
-                            <span onClick={() => categorySelected(category.name)}>
-                                {category.name}
+                        // short circuit if currentCategory.name === category.name is true, navActive will be returned
+                        <li className={`mx-1 ${currentCategory.name === category.name && 'navActive'}`} key={category.name}>
+                            <span onClick={() => { setCurrentCategory(category)}}>
+                              {capitalizeFirstLetter(category.name)}
                             </span>
                         </li>
                     ))}
