@@ -14,9 +14,9 @@ function Nav(props) {
     } = props;
 
     // [currentCategory] directs useEffect Hook to rerender the component on changes to the value of this state
-    useEffect(() => {
-        document.title = capitalizeFirstLetter(currentCategory.name);
-    }, [currentCategory]);
+    // useEffect(() => {
+    //     document.title = capitalizeFirstLetter(currentCategory.name);
+    // }, [currentCategory]);
 
       return (
         <header className="flex-row px-1">
