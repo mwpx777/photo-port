@@ -1,6 +1,7 @@
 // NAVIGATION
 
-import React, {useEffect} from 'react';
+// import React, {useEffect} from 'react';
+import React from 'react';
 import {capitalizeFirstLetter} from "../../utils/helpers";
 
 // props are passed in from App.js which define the state of category
