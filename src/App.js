@@ -4,8 +4,9 @@ import React, { useState } from 'react';
 import Nav from './components/Nav';
 import About from './components/About';
 import Gallery from './components/Gallery';
-
+import Contact from'./components/Contact';
 function App() {
+
   const [categories] = useState([
     {
       name: 'commercial',
@@ -27,6 +28,7 @@ function App() {
         currentCategory={currentCategory}
       ></Nav>
       <main>
+        <ContactForm></ContactForm>
          {/* this is prop that gets passed to Gallery component */}
         <Gallery currentCategory={currentCategory}></Gallery>
         <About></About>
