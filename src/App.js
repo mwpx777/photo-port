@@ -8,6 +8,9 @@ import ContactForm from'./components/Contact';
 
 function App() {
 
+  // this will make contact section hidden by default
+  const [contactSelected, setContactSelected] = useState(false);
+
   const [categories] = useState([
     {
       name: 'commercial',
@@ -27,12 +30,19 @@ function App() {
         categories={categories}
         setCurrentCategory={setCurrentCategory}
         currentCategory={currentCategory}
+        contactSelected={contactSelected}
+        setContactSelected={setContactSelected}
       ></Nav>
       <main>
-        <ContactForm></ContactForm>
+        {!contactSelected ? (
+          <>
          {/* this is prop that gets passed to Gallery component */}
         <Gallery currentCategory={currentCategory}></Gallery>
         <About></About>
+          </>
+         ):(
+            <ContactForm></ContactForm>
+         )}
       </main>
     </div>
   );
