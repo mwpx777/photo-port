@@ -113,8 +113,9 @@ const PhotoList = ({ category }) => {
     const toggleModal = (image, i) => {
         // this uses spread operator to add the index: i key value pair to current photo state
         setCurrentPhoto({...image, index: i})
-        // this will setIsModalOpen to true when image is clicked on
-        setIsModalOpen(true);
+        // this will setIsModalOpen to true when image is clicked on 
+        // this will setIsModalOpen to false when `Close this modal` button is clicked
+        setIsModalOpen(!isModalOpen);
     }
 
     // this hook manages if modal is open 
@@ -123,8 +124,8 @@ const PhotoList = ({ category }) => {
     return (
         <div>
             {/* this will take in currentPhoto props and send to Modal component */}
-            {/* the will allow modal to open whenb isModalOpen is set to true */}
-           {isModalOpen && <Modal currentPhoto = {currentPhoto} />}
+            {/* the will allow modal to open when isModalOpen is set to true , and will run toggleModal function when modal is closed*/}
+           {isModalOpen && (<Modal currentPhoto = {currentPhoto} onClose={toggleModal} />)}
             <div className="flex-row">
                 {currentPhotos.map((image, i) => (
                     <img

@@ -1,10 +1,10 @@
 // MODAL
 
-import React, { useState } from 'react'
+import React from 'react'
 
 
-// currentPhoto prop passed in here from PhotoList component
-function Modal({ currentPhoto }) {
+// onClose and currentPhoto props passed in here from PhotoList component
+function Modal({ onClose, currentPhoto }) {
     // destructure currentPhoto info from currentPhoto prop that was passed into this function
     const { name, category, description, index } = currentPhoto;
 
@@ -14,10 +14,12 @@ function Modal({ currentPhoto }) {
                 <h3 className="modalTitle">{name}</h3>
                 <img src={require(`../../assets/large/${category}/${index}.jpg`)}alt="current category" />
                 <p>{description}</p>
-                <button type="button">Close this Modal</button>
+                <button onClick={onClose} type="button">Close this modal</button>
             </div>
         </div>
     )
 }
 
 export default Modal;
+
+
