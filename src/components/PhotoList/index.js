@@ -1,5 +1,6 @@
 // PHOTOLIST
 import React, { useState } from 'react'
+import Modal from '../Modal';
 
 
 
@@ -105,24 +106,38 @@ const PhotoList = ({ category }) => {
     ]);
 
     const currentPhotos = photos.filter((photo) => photo.category === category);
+    
+    // this will pass currentPhoto as a prop into Modal below
+    const [currentPhoto, setCurrentPhoto] = useState();
 
-  
+    const toggleModal = (image, i) => {
+        // this uses spread operator to add the index: i key value pair to current photo state
+        setCurrentPhoto({...image, index: i})
+        // this will setIsModalOpen to true when image is clicked on
+        setIsModalOpen(true);
+    }
+
+    // this hook manages if modal is open 
+    const [isModalOpen, setIsModalOpen ] = useState(false);
 
     return (
-      <div>
-        <div className="flex-row">
-          {currentPhotos.map((image, i) => (
-            <img
-              src={require(`../../assets/small/${category}/${i}.jpg`)}
-              alt={image.name}
-              className="img-thumbnail mx-1"
-              key={image.name}
-            />
-          ))}
+        <div>
+            {/* this will take in currentPhoto props and send to Modal component */}
+            {/* the will allow modal to open whenb isModalOpen is set to true */}
+           {isModalOpen && <Modal currentPhoto = {currentPhoto} />}
+            <div className="flex-row">
+                {currentPhotos.map((image, i) => (
+                    <img
+                        src={require(`../../assets/small/${category}/${i}.jpg`)}
+                        alt={image.name}
+                        className="img-thumbnail mx-1"
+                        onClick={() => toggleModal(image, i)}
+                        key={image.name}
+                    />
+                ))}
+            </div>
         </div>
-      </div>
     );
-  };
-  
-  export default PhotoList;
-  
+};
+
+export default PhotoList;
